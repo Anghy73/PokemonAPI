@@ -87,7 +87,7 @@
   cursor: pointer;
   width: 200px;
   transition: transform 400ms;
-  
+
   &:hover {
     /* transform: skew(10) */
     /* transform: translate(10px, 10px) */

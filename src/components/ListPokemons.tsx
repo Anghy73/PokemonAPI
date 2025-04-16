@@ -6,11 +6,9 @@ interface Props {
 }
 
 export const ListPokemons = ({ pokemons }: Props) => {
-  console.log(pokemons);
-
   return (
     <>
-      <h4>Lista de pokemones</h4>
+      <h3>Lista de pokemones</h3>
       <div className="flex justify-center items-center gap-8 w-full h-full mt-30 flex-wrap gap-y-20">
         {
           pokemons.map(pokemon => (

@@ -6,6 +6,9 @@ import { PokemonsResults } from './types'
 import { Logo } from './components/Logo'
 import { ListPokemons } from './components/ListPokemons'
 
+
+import imgLoad from './assets/img/nofound.png'
+
 function App() {
 
   const [pokemons, setPokemons] = useState<PokemonsResults[]>([])
@@ -20,8 +23,12 @@ function App() {
 
   return (
     <>
-      {/* <Logo></Logo> */}
+      <Logo></Logo>
       <ListPokemons pokemons={pokemons}></ListPokemons>
+      <div className='mt-20 flex flex-col justify-center items-center relative cursor-pointer'>
+        <img className='max-w-[100px]' src={imgLoad} alt="" />
+        <p className='absolute top-3/4'>Cargar Más...</p>
+      </div>
     </>
   )
 }
