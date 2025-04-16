@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react"
+import { PokemonDetails } from "../types";
 
-export const Pokemon = ({ pokemon }) => {
-  const [pokemonD, setPokemonD] = useState([])
+interface Props {
+  pokemonURL: string
+}
+
+export const Pokemon = ({ pokemonURL }: Props) => {
+  const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
 
   useEffect(() => {
-    fetch(pokemon.url)
+    fetch(pokemonURL)
       .then(async res => await res.json())
-      .then(res => setPokemonD(res))
+      .then(res => setPokemonDetails(res))
       .catch(err => console.log(err))
-  }, [])
-
-  console.log(pokemonD);
-  
+  }, [])  
   
   return (
     <div>
-      <img src={pokemonD.sprites.front_default} alt="" />
-      <span>{pokemonD.id}</span>
-      <h3>{pokemonD.name}</h3>
+      <img src={pokemonDetails?.sprites.front_default} alt="" />
+      <span>{pokemonDetails?.id}</span>
+      <h3>{pokemonDetails?.name}</h3>
     </div>
   )
 }
