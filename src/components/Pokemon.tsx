@@ -20,6 +20,7 @@ export const Pokemon = ({ pokemonURL }: Props) => {
       <img src={pokemonDetails?.sprites.front_default} alt="" />
       <span>{pokemonDetails?.id}</span>
       <h3>{pokemonDetails?.name}</h3>
+      <p className="bg-[#ff0080]"></p>
     </div>
   )
 }

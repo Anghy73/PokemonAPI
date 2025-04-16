@@ -17,6 +17,13 @@
 
 .read-the-docs {
   color: #888;
+  /* color: #b79336;
+  color: #ff5dae;
+  color: #da322c;
+  color: #ffe14b;
+  color: #d8bf40;
+  color: #8b67ba; */
+  /* color: #ad886f; */
 }
 
 
@@ -36,7 +43,12 @@
 
   /* From https://css.glass */
   background: #5959591a;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 30px; */
+  /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+  /* box-shadow: 0 4px 30px #00ff0d1a; */
+  /* box-shadow: 0 4px 30px #ffd9001a; */
+  /* box-shadow: 0 4px 30px #00fffb1a; */
+  /* box-shadow: 0 4px 30px #00fffb25; */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(100, 100, 100, 0.2);
@@ -74,16 +86,28 @@
 .glowPokeImg {
   cursor: pointer;
   width: 200px;
-  /* transition: width 500ms; */
+  transition: transform 400ms;
+  
+  &:hover {
+    /* transform: skew(10) */
+    /* transform: translate(10px, 10px) */
+    transform: scale(125%)
+  }
+
+  /* transition: width 800ms;
 
   &:hover {
-    /* width: 230px; */
-  }
+    width: 230px;
+  } */
 }
 
 .cardPoke {
   border-radius: 32px;
   background: linear-gradient(145deg, #131313, #101010);
-  box-shadow: 30px 30px 18px #0e0e0e,
-    -30px -30px 18px #161616;
+  box-shadow: 8px 8px 18px #0e0e0e,
+    -10px -10px 18px #161616;
+}
+
+.cardPoke:hover .glowPoke::before {
+  animation: brillo 700ms ease-in-out;
 }
