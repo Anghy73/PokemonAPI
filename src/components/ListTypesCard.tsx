@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const ListTypesCard = ({ arrTypes }: Props) => {
-  console.log(arrTypes);
+  // console.log(arrTypes);
 
   if (typeof(arrTypes) === 'undefined') {return 'no se encontraron types'}
   

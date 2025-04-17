@@ -4,6 +4,8 @@ import { PokemonDetails } from "../types"
 import { defineType } from '../hooks/DefineType'
 import { ListTypesCard } from "./ListTypesCard"
 
+import imgLoad from '../assets/img/nofound.png'
+
 
 
 export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
@@ -15,6 +17,7 @@ export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
       .then(json => setPokemonDetails(json))
       .catch(e => console.log(e))
   }, [])
+  
 
   const type = pokemonDetails?.types[0].type.name
   const pokeID = `#${pokemonDetails?.id.toString().padStart(3, '0')}`
@@ -23,7 +26,7 @@ export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
     <div className="cardPoke w-full max-w-[350px] flex flex-col items-center bg-[#151515] rounded-3xl px-5 py-10 pt-40 relative cursor-pointer">
       <figure className="w-full absolute top-12 flex justify-center items-center">
         <div style={{ boxShadow: `0px 4px 30px ${defineType({ type }).color}88, 0px 0 50px ${defineType({ type }).color}1a inset`, }} className="glowPoke w-[190px] h-[190px] rounded-full overflow-hidden cursor-pointer absolute z-0"></div>
-        <img className="glowPokeImg absolute z-10" src={pokemonDetails?.sprites.front_default} alt={`image of the pokemon ${pokemonDetails?.name}`} />
+        <img className="glowPokeImg absolute z-10" src={pokemonDetails?.sprites.front_default !== null ? pokemonDetails?.sprites.front_default : imgLoad} alt={`image of the pokemon ${pokemonDetails?.name}`} />
       </figure>
       <div className="flex flex-col gap-6 w-full">
         <div className="flex flex-col gap-2 justify-center items-center font-bold pt-3">
