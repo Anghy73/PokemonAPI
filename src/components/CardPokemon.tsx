@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react"
+
+import { FaHeart, FaInfo } from 'react-icons/fa'
+
 import { PokemonDetails } from "../types"
 
 import { defineType } from '../hooks/DefineType'
@@ -35,8 +38,8 @@ export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
         </div>
         <ListTypesCard  arrTypes={pokemonDetails?.types}></ListTypesCard>
         <div className="w-full flex justify-center items-center gap-5 px-5">
-          <button style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-2 rounded-md hover:border-blue-600 cursor-pointer shadow-lg hover:shadow-blue-900">More Info</button>
-          <button style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-2 rounded-md hover:border-red-500 cursor-pointer shadow-lg hover:shadow-red-900">❤️</button>
+          <button style={{ transition: 'all 200ms ease-in-out' }} className="flex justify-center items-center w-full bg-transparent border-2 border-[#282828] p-2 py-3 rounded-md hover:border-blue-500 cursor-pointer shadow-lg hover:shadow-blue-900 text-[#595959] hover:text-blue-500"><FaInfo></FaInfo></button>
+          <button style={{ transition: 'all 200ms ease-in-out' }} className="w-full flex justify-center items-center  bg-transparent border-2 border-[#282828] p-2 py-3 rounded-md hover:border-red-500 cursor-pointer shadow-lg hover:shadow-red-900 text-[#595959] hover:text-red-500"><FaHeart></FaHeart></button>
         </div>
       </div>
     </div>
