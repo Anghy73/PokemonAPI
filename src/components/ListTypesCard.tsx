@@ -1,4 +1,4 @@
-import { defineType } from "../hooks/DefineType"
+import { defineType } from "../utilities/defineType"
 import { Type } from "../types";
 
 interface Props {

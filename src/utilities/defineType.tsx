@@ -1,4 +1,4 @@
-import { Bug, Dark, Dragon, Electric, Fairy, Fighting, Fire, Flying, Ghost, Grass, Ground, Ice, Normal, Poison, Psychic, Rock, Steel, Water } from '../assets/type-icons/TypeIcons'
+import { Bug, Dark, Dragon, Electric, Fairy, Fighting, Fire, Flying, Ghost, Grass, Ground, Ice, Normal, Poison, Psychic, Rock, Steel, Stellar, Unknown, Water } from '../assets/type-icons/TypeIcons'
 
 
 interface DefineType {
@@ -112,9 +112,14 @@ export const defineType = ({ type, w, h }: DefineType) => {
       color = '#ff0080';
       typeIcon = <Fairy width={w} height={h} color={color} />;
       break;
+    case 'stellar':
+      color = '#FFFFFF';
+      typeIcon = <Stellar width={w} height={h} color={color} />;
+      break;
     default:
-      color = '#777';
-      // typeIcon = <Unknown />;
+      color = '#000000';
+      // typeIcon = <Stellar width={w} height={h} color={color} />;
+      typeIcon = <Unknown width={w} height={h} color={color}/>;
       break;
   }
 

@@ -4,7 +4,7 @@ import { FaHeart, FaInfo } from 'react-icons/fa'
 
 import { PokemonDetails } from "../types"
 
-import { defineType } from '../hooks/DefineType'
+import { defineType } from '../utilities/defineType'
 import { ListTypesCard } from "./ListTypesCard"
 
 import imgLoad from '../assets/img/nofound.png'
@@ -12,6 +12,8 @@ import imgLoad from '../assets/img/nofound.png'
 
 
 export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
+  // console.log(pokemonURL);
+  
   const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
 
   useEffect(() => {

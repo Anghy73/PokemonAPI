@@ -4,4 +4,16 @@ export const fecthPokemons = async ({ offsetValue, limitValue }: { offsetValue: 
   const response = await fetch(`${BASE_URL_API}/pokemon?offset=${offsetValue}&limit=${limitValue}`)
   const json = await response.json()
   return json
-} 
+}
+
+export const fecthPokemonsTypes = async () => {
+  const response = await fetch(`${BASE_URL_API}/type`)
+  const json = await response.json()
+  return json
+}
+
+export const fecthPokemonType = async (typeNumber: number | null) => {
+  const response = await fetch(`${BASE_URL_API}/type/${typeNumber}`)
+  const json = await response.json()
+  return json
+}
