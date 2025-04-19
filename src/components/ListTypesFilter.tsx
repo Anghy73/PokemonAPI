@@ -62,9 +62,9 @@ export const ListTypesFilter = ({ updateTypeNumber }: Props) => {
 
   return (
     <div className="flex flex-col items-start gap-2">
-      <h3 className="font-semibold text-2xl pl-4">Búsqueda por tipos</h3>
+      <h3 className="font-semibold text-2xl pl-4">Búsqueda por Tipos</h3>
 
-      <div className="flex justify-start items-center gap-2 w-full max-w-[500px] overflow-x-scroll p-3 py-4 rounded-xl border-2 border-[#282828]">
+      <div className="container-snap flex justify-start items-center gap-2 w-full max-w-[500px] overflow-x-scroll snap-x p-3 py-4 rounded-xl border-2 border-[#282828] h-18">
         <div onClick={handleNoneTypes} className="text-2xl cursor-pointer shadow hover:shadow-white rounded-full p-2 bg-[#00000055]">
           <MdFilterAltOff></MdFilterAltOff>
         </div>

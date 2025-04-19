@@ -111,3 +111,12 @@
 .cardPoke:hover .glowPoke::before {
   animation: brillo 700ms ease-in-out;
 }
+
+.container-snap::-webkit-scrollbar {
+  display: none;
+}
+
+.container-snap {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

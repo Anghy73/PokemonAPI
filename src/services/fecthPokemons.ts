@@ -17,3 +17,9 @@ export const fecthPokemonType = async (typeNumber: number | null) => {
   const json = await response.json()
   return json
 }
+
+export const fetchAllPokemons = async () => {
+  const response = await fetch(`${BASE_URL_API}/pokemon?limit=100000&offset=0`)
+  const json = await response.json()
+  return json
+}
