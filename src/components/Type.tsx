@@ -24,6 +24,8 @@ export const Type = ({ typeName }: { typeName: string }) => {
   }
 
   const isSelected = defineTypeNumber(typeName) == pokemonTypeNumber
+  
+  if (typeName == 'unknown') return
 
   return (
     <button

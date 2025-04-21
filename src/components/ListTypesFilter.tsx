@@ -19,8 +19,6 @@ export const ListTypesFilter = () => {
     setPokemonType(null)
   }
 
-  // console.log(types);
-
   return (
     <div className="flex flex-col items-start gap-2">
       <h3 className="font-semibold text-2xl pl-4">Búsqueda por Tipos</h3>

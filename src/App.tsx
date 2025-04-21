@@ -26,8 +26,30 @@ function App() {
   const pokemonsFilterType = usePokemonsStore(state => state.pokemonsFilterType)
   const typeIsLoading = usePokemonsStore(state => state.typeIsLoading)
   const pokemonType = usePokemonsStore(state => state.pokemonTypeNumber)
-  console.log(pokemonsFilterType);
-  console.log(pokemonType);
+  const pokemonName = usePokemonsStore(state => state.pokemonName)
+  // console.log(pokemonsFilterType);
+  // console.log(pokemonType);
+
+  // const matchPokemons = usePokemonsStore(state => state.matchPokemons)
+  // console.log(matchPokemons);
+
+  // const pokemonName = usePokemonsStore(state => state.pokemonName)
+  // const allPokemons = usePokemonsStore(state => state.allPokemons)
+  const matchPokemons = usePokemonsStore(state => state.matchPokemons)
+
+  // console.log(matchPokemons);
+  
+
+  // const matchPokemon = allPokemons.filter(poke => poke.name.startsWith(pokemonName))
+  // console.log(matchPokemon);
+  
+
+
+  
+
+
+
+
   
   
   // const updatePokemons = usePokemonsStore(state => state.updatePokemons)
@@ -120,6 +142,9 @@ function App() {
   //   setTypeNumber(num)
   // }
 
+  console.log(pokemonName);
+  
+
   return (
     <>
       <Logo></Logo>
@@ -128,15 +153,17 @@ function App() {
 
       { typeIsLoading && <Loader></Loader> }
 
-      { pokemonsFilterType.length == 0 && typeof pokemonType == 'number' && <p>No hay pokemones de este tipo por el momento</p> }
+      { pokemonType == null && matchPokemons.length > 0 && <ListPokemons pokemons={matchPokemons}></ListPokemons> }
+
+      { pokemonsFilterType.length == 0 && typeof pokemonType == 'number' && <p className='max-w-xl m-auto p-4 mt-20 rounded-2xl border-2 border-amber-600'>No hay pokemones de este tipo por el momento</p> }
 
       { pokemonsFilterType.length > 0 && pokemonType != null && <ListPokemons pokemons={pokemonsFilterType}></ListPokemons>}
 
-      { pokemons.length > 0 && pokemonType == null && <ListPokemons pokemons={pokemons}></ListPokemons>}
+      { pokemons.length > 0 && pokemonType == null && pokemonName == '' && <ListPokemons pokemons={pokemons}></ListPokemons>}
 
       { isLoading && <Loader></Loader> }
 
-      { pokemonType == null && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-300 cursor-pointer shadow-lg hover:shadow-amber-300 max-w-[200px] mt-25 mb-20 hover:text-amber-300 font-semibold text-lg">Load More ...</button> }
+      { pokemonType == null && pokemonName == '' && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-300 cursor-pointer shadow-lg hover:shadow-amber-300 max-w-[200px] mt-25 mb-20 hover:text-amber-300 font-semibold text-lg">Load More ...</button> }
 
 
 

@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
+// import { useState } from "react";
 
-export const useFilterName = ({ pokemonName }: { pokemonName: string }) => {
-  const [allPokemons, setAllPokemons] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+// export const useFilterName = ({ pokemonName }: { pokemonName: string }) => {
+//   const [allPokemons, setAllPokemons] = useState([])
 
-  let matchPokemon = allPokemons.filter(poke => poke.name.startsWith(pokemonName))
+//   let matchPokemon = allPokemons.filter(poke => poke.name.startsWith(pokemonName))
 
-  if (matchPokemon.length == allPokemons.length) { matchPokemon = [] }
+//   if (matchPokemon.length == allPokemons.length) { matchPokemon = [] }
 
-  // console.log(matchPokemon);
+//   // console.log(matchPokemon);
 
-  return {
-    allPokemons,
-    isLoading,
-    matchPokemon
-  }
-}
+//   return {
+//     allPokemons,
+//     isLoading,
+//     matchPokemon
+//   }
+// }
