@@ -1,51 +1,9 @@
 import { useEffect, useState } from "react"
-import { defineType } from "../utilities/defineType"
 import { Species } from "../types"
 import { MdFilterAltOff } from "react-icons/md"
-import { defineTypeNumber } from "../utilities/defineTypeNumber"
 import { fecthPokemonsTypes } from "../services/fecthPokemons"
 import { usePokemonsStore } from "../store/usePokemons"
-
-
-const Type = ({ typeName }: { typeName: string }) => {
-
-  const updatePokemonsFilterType = usePokemonsStore(state => state.updatePokemonsFilterType)
-  const setPokemonType = usePokemonsStore(state => state.setPokemonType)
-  const [isHoverActive, setIsHoverActive] = useState(false)
-
-  const handleMouseOn = () => {
-    setIsHoverActive(true)
-  }
-
-  const handleMouseOff = () => {
-    setIsHoverActive(false)
-  }
-
-  const handleFilterType = () => {
-    const typeNumber = defineTypeNumber(typeName)
-    setPokemonType(typeNumber)
-    updatePokemonsFilterType(typeNumber)
-    
-    console.log('hi');
-    console.log(typeName);
-  }
-
-  return (
-    <button
-      onClick={handleFilterType}
-      onMouseEnter={handleMouseOn}
-      onMouseLeave={handleMouseOff}
-      style={isHoverActive ? { boxShadow: `0 4px 30px ${defineType({ type: typeName }).color}4f, 0 0 10px ${defineType({ type: typeName }).color}3f inset` } : {}}
-      className="p-2 rounded-full cursor-pointer bg-[#00000055]"
-    >
-      {defineType({ type: typeName, w: '25px', h: '25px' }).typeIcon}
-    </button>
-  )
-}
-
-// interface Props {
-//   updateTypeNumber?: React.Dispatch<React.SetStateAction<number | null>>
-// }
+import { Type } from "./Type"
 
 export const ListTypesFilter = () => {
   const setPokemonType = usePokemonsStore(state => state.setPokemonType)
