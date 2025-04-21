@@ -12,8 +12,6 @@ import imgLoad from '../assets/img/nofound.png'
 
 
 export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
-  // console.log(pokemonURL);
-  
   const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
 
   useEffect(() => {
@@ -23,8 +21,8 @@ export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
       .catch(e => console.log(e))
   }, [])
   
-
   const type = pokemonDetails?.types[0].type.name
+  const pokeName = pokemonDetails?.name !== undefined ? (pokemonDetails?.name?.charAt(0).toUpperCase() + pokemonDetails?.name?.slice(1)) : ''
   const pokeID = `#${pokemonDetails?.id.toString().padStart(3, '0')}`
 
   return (
@@ -36,7 +34,7 @@ export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
       <div className="flex flex-col gap-6 w-full">
         <div className="flex flex-col gap-2 justify-center items-center font-bold pt-3">
           <span style={{ backgroundColor: `${defineType({ type }).color}15`, border: `1px solid ${defineType({ type })}44` }} className="px-2 py-0.5 rounded-xl font-semibold">{pokeID}</span>
-          <h3 className="text-2xl">{pokemonDetails?.name}</h3>
+          <h3 className="text-2xl">{pokeName}</h3>
         </div>
         <ListTypesCard  arrTypes={pokemonDetails?.types}></ListTypesCard>
         <div className="w-full flex justify-center items-center gap-5 px-5">

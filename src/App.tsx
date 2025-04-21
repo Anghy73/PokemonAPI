@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react'
 import './App.css'
-import { fecthPokemons, fetchAllPokemons } from './services/fecthPokemons'
-import { PokemonsResultsTypes, PokemonsResults } from './types'
+import { fecthPokemons } from './services/fecthPokemons'
+import { PokemonsResults } from './types'
 import { Logo } from './components/Logo'
 import { ListPokemons } from './components/ListPokemons'
 
 import { Loader } from './components/Loader'
 
-import { fecthPokemonType } from "./services/fecthPokemons"
 import { Filters } from './components/Filters'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { usePokemonsStore } from './store/usePokemons'
 
 
 function App() {
@@ -18,10 +17,23 @@ function App() {
     queryKey: ['pokemons'],
     queryFn: ({ pageParam }: { pageParam: number }) => fecthPokemons({  offset: pageParam, limitValue: 15 }),
     getNextPageParam: (lastPage) => lastPage.nextPage,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   })
 
   const pokemons: PokemonsResults[] = data?.pages?.flatMap(page => page.pokemons) ?? []
+
+
+  const pokemonsFilterType = usePokemonsStore(state => state.pokemonsFilterType)
+  const typeIsLoading = usePokemonsStore(state => state.typeIsLoading)
+  const pokemonType = usePokemonsStore(state => state.pokemonTypeNumber)
+  console.log(pokemonsFilterType);
+  console.log(pokemonType);
+  
+  
+  // const updatePokemons = usePokemonsStore(state => state.updatePokemons)
+  // updatePokemons(fetchPokemons)
+  
+  // const pokemons = usePokemonsStore(state => state.pokemons)
 
 
   // const [pokemons, setPokemons] = useState<PokemonsResults[]>([])
@@ -29,13 +41,15 @@ function App() {
   // const [error, setError] = useState(false)
 
 
-  const [pokemonsTypes, setPokemonsTypes] = useState<PokemonsResultsTypes[]>([])
-  const [typeNumber, setTypeNumber] = useState<number | null>(null)
+  // const [pokemonsTypes, setPokemonsTypes] = useState<PokemonsResultsTypes[]>([])
+  // console.log(pokemonsTypes);
+  
+  // const [typeNumber, setTypeNumber] = useState<number | null>(null)
 
   // const [currentPage, setCurrentPage] = useState(0)
 
   // const [pokemonsFilterName, setPokemonsFilterName] = useState<PokemonsResults[]>([])
-  const [pokemonName, setPokemonName] = useState<string>('')
+  // const [pokemonName, setPokemonName] = useState<string>('')
   // console.log(pokemonsFilterName);
 
   // const [allPokemons, setAllPokemons] = useState<PokemonsResults[]>([])
@@ -57,24 +71,24 @@ function App() {
   // }, [pokemonName])
 
 
-  useEffect(() => {
-    // setIsLoading(true)
-    // setError(false)
+  // useEffect(() => {
+  //   // setIsLoading(true)
+  //   // setError(false)
 
-    if (typeNumber == 0 || typeNumber == null) {
-      return setPokemonsTypes([])
-    }
+  //   if (pokemonType == 0 || pokemonType == null) {
+  //     return setPokemonsTypes([])
+  //   }
 
-    // if (typeNumber == ) return
+  //   // if (pokemonType == ) return
 
-    fecthPokemonType(typeNumber)
-      .then(res => setPokemonsTypes(res.pokemon))
-      .catch(err => {
-        // setError(err)
-        console.log(err)
-      })
-    // .finally(() => setIsLoading(false))
-  }, [typeNumber])
+  //   fecthPokemonType(pokemonType)
+  //     .then(res => setPokemonsTypes(res.pokemon))
+  //     .catch(err => {
+  //       // setError(err)
+  //       console.log(err)
+  //     })
+  //   // .finally(() => setIsLoading(false))
+  // }, [pokemonType])
 
   // useEffect(() => {
   //   setIsLoading(true)
@@ -98,23 +112,39 @@ function App() {
   // }, [currentPage])
 
 
-  const handlePokemonsFilterName = (name: React.SetStateAction<string>) => {
-    setPokemonName(name)
-  }
+  // const handlePokemonsFilterName = (name: React.SetStateAction<string>) => {
+  //   setPokemonName(name)
+  // }
 
-  const handleTypeNumber = (num: React.SetStateAction<number | null>) => {
-    setTypeNumber(num)
-  }
+  // const handleTypeNumber = (num: React.SetStateAction<number | null>) => {
+  //   setTypeNumber(num)
+  // }
 
   return (
     <>
       <Logo></Logo>
-      {/* <Filters updateTypeNumber={handleTypeNumber} updatePokemonsFilterName={handlePokemonsFilterName}></Filters> */}
-      { pokemons.length > 0 && <ListPokemons pokemons={pokemons}></ListPokemons>}
+
+      <Filters></Filters>
+
+      { typeIsLoading && <Loader></Loader> }
+
+      { pokemonsFilterType.length == 0 && typeof pokemonType == 'number' && <p>No hay pokemones de este tipo por el momento</p> }
+
+      { pokemonsFilterType.length > 0 && pokemonType != null && <ListPokemons pokemons={pokemonsFilterType}></ListPokemons>}
+
+      { pokemons.length > 0 && pokemonType == null && <ListPokemons pokemons={pokemons}></ListPokemons>}
+
+      { isLoading && <Loader></Loader> }
+
+      { pokemonType == null && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-300 cursor-pointer shadow-lg hover:shadow-amber-300 max-w-[200px] mt-25 mb-20 hover:text-amber-300 font-semibold text-lg">Load More ...</button> }
+
+
+
+      {/* { !isLoading && pokemonType != null && pokemonsFilterType.length == 0 &&  } */}
 
       {/* {typeof (typeNumber) == 'number' && pokemonsTypes.length == 0 && isLoading == false ? <p className='mt-20 font-bold text-3xl'>No hay pokemons</p> : (pokemonsTypes.length > 0 && pokemonName == '') ? <ListPokemons pokemons={pokemonsTypes}></ListPokemons> : pokemonsFilterName.length > 0 ? <ListPokemons pokemons={pokemonsFilterName} ></ListPokemons> : <ListPokemons pokemons={pokemons} ></ListPokemons>} */}
 
-        { isLoading ? <Loader></Loader> : <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-300 cursor-pointer shadow-lg hover:shadow-amber-300 max-w-[200px] mt-25 mb-20 hover:text-amber-300 font-semibold text-lg">Load More ...</button> }
+        {/* { isLoading ? <Loader></Loader> : <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-300 cursor-pointer shadow-lg hover:shadow-amber-300 max-w-[200px] mt-25 mb-20 hover:text-amber-300 font-semibold text-lg">Load More ...</button> } */}
 
         {/* {isLoading ?
         : */}

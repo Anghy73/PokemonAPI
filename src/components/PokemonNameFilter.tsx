@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const PokemonNameFilter = ({ updatePokemonsFilterName }: { updatePokemonsFilterName: React.Dispatch<React.SetStateAction<string>>}) => {
+export const PokemonNameFilter = () => {
 
   const [name, setName] = useState('')
 
@@ -8,7 +8,7 @@ export const PokemonNameFilter = ({ updatePokemonsFilterName }: { updatePokemons
     const searchInput = e.target.value
     setName(searchInput)
     
-    updatePokemonsFilterName(searchInput)
+    // updatePokemonsFilterName(searchInput)
   }
   
 

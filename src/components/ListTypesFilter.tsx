@@ -4,9 +4,13 @@ import { Species } from "../types"
 import { MdFilterAltOff } from "react-icons/md"
 import { defineTypeNumber } from "../utilities/defineTypeNumber"
 import { fecthPokemonsTypes } from "../services/fecthPokemons"
+import { usePokemonsStore } from "../store/usePokemons"
 
 
-const Type = ({ typeName, updateNumber }: { typeName: string, updateNumber: React.Dispatch<React.SetStateAction<number | null>> }) => {
+const Type = ({ typeName }: { typeName: string }) => {
+
+  const updatePokemonsFilterType = usePokemonsStore(state => state.updatePokemonsFilterType)
+  const setPokemonType = usePokemonsStore(state => state.setPokemonType)
   const [isHoverActive, setIsHoverActive] = useState(false)
 
   const handleMouseOn = () => {
@@ -18,12 +22,10 @@ const Type = ({ typeName, updateNumber }: { typeName: string, updateNumber: Reac
   }
 
   const handleFilterType = () => {
-
-    const number = defineTypeNumber(typeName)
-    updateNumber(number)
-    console.log(number);
+    const typeNumber = defineTypeNumber(typeName)
+    setPokemonType(typeNumber)
+    updatePokemonsFilterType(typeNumber)
     
-
     console.log('hi');
     console.log(typeName);
   }
@@ -41,11 +43,12 @@ const Type = ({ typeName, updateNumber }: { typeName: string, updateNumber: Reac
   )
 }
 
-interface Props {
-  updateTypeNumber: React.Dispatch<React.SetStateAction<number | null>>
-}
+// interface Props {
+//   updateTypeNumber?: React.Dispatch<React.SetStateAction<number | null>>
+// }
 
-export const ListTypesFilter = ({ updateTypeNumber }: Props) => {
+export const ListTypesFilter = () => {
+  const setPokemonType = usePokemonsStore(state => state.setPokemonType)
   const [types, setTypes] = useState<Array<Species>>([])
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export const ListTypesFilter = ({ updateTypeNumber }: Props) => {
   }, [])
 
   const handleNoneTypes = () => {
-    updateTypeNumber(null)
+    setPokemonType(null)
   }
 
   // console.log(types);
@@ -70,7 +73,7 @@ export const ListTypesFilter = ({ updateTypeNumber }: Props) => {
         </div>
         {
           types.map(type => (
-            <Type key={type.name} typeName={type.name} updateNumber={updateTypeNumber}></Type>
+            <Type key={type.name} typeName={type.name}></Type>
           ))
         }
       </div>

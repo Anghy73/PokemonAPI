@@ -1,6 +1,7 @@
 const BASE_URL_API = import.meta.env.VITE_BASE_URL_API
 
 export const fecthPokemons = async ({ offset = 0, limitValue = 0 }: { offset?: number, limitValue: number }) => {
+
   const response = await fetch(`${BASE_URL_API}/pokemon?offset=${offset}&limit=${limitValue}`)
   const json = await response.json()
 
@@ -21,7 +22,7 @@ export const fecthPokemonsTypes = async () => {
 export const fecthPokemonType = async (typeNumber: number | null) => {
   const response = await fetch(`${BASE_URL_API}/type/${typeNumber}`)
   const json = await response.json()
-  return json
+  return json.pokemon
 }
 
 export const fetchAllPokemons = async () => {
