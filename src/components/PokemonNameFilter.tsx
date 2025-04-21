@@ -1,19 +1,6 @@
 import { useState } from "react"
-import { useFilterName } from "../hooks/useFilterName"
-import { PokemonsResults } from "../types"
-import { useDebounce } from "use-debounce"
 
 export const PokemonNameFilter = ({ updatePokemonsFilterName }: { updatePokemonsFilterName: React.Dispatch<React.SetStateAction<string>>}) => {
-
-  // const [ value ] = useDebounce(pokemonName, 1000)
-  // const { matchPokemon } = useFilterName({ pokemonName: value })
-
-  // updatePokemonsFilterName(matchPokemon)
-
-  // const handleSearchPokemon = () => {
-  //   setPokemonName('pika')
-  // }
-  // console.log(matchPokemon);
 
   const [name, setName] = useState('')
 
