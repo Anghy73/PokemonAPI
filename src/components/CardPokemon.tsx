@@ -11,8 +11,15 @@ import imgLoad from '../assets/img/nofound.png'
 
 
 
-export const CardPokemon = ({ pokemonURL }: { pokemonURL: string }) => {
+export const CardPokemon = ({ pokemonURL, name }: { pokemonURL: string, name?: string }) => {
   const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
+
+  if (pokemonURL.includes('pokemon-species')) {
+    const pokeURLSplip = pokemonURL.split('/')
+    pokeURLSplip[5] = 'pokemon'
+    pokeURLSplip[6] = name ?? ''
+    pokemonURL = pokeURLSplip.join('/')
+  }
 
   useEffect(() => {
     fetch(pokemonURL)

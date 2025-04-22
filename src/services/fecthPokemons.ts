@@ -28,8 +28,11 @@ export const fecthPokemonType = async (typeNumber: number | null) => {
 export const fetchAllPokemons = async () => {
   const response = await fetch(`${BASE_URL_API}/pokemon?limit=100000&offset=0`)
   const json = await response.json()
-
-  console.log('haciendo fetching');
-  
   return json.results
+}
+
+export const fetchGender = async (genderNumber: number | null) => {
+  const response = await fetch(`${BASE_URL_API}/gender/${genderNumber}/`)
+  const json = await response.json()
+  return json.pokemon_species_details
 }

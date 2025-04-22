@@ -343,3 +343,34 @@ export interface GenerationViii {
   "legends-arceus":                      Colosseum;
   "sword-shield":                        Colosseum;
 }
+
+// types gender
+
+export interface PokemonDetails {
+  id:                      number;
+  name:                    string;
+  pokemon_species_details: PokemonSpeciesDetail[];
+  required_for_evolution:  RequiredForEvolution[];
+}
+
+export interface PokemonSpeciesDetail {
+  pokemon_species: RequiredForEvolution;
+  rate:            number;
+}
+
+// export interface RequiredForEvolution {
+//   name: string;
+//   url:  string;
+// }
+
+// export interface PokemonDetails {
+//   count:    number;
+//   next:     null;
+//   previous: null;
+//   results:  Result[];
+// }
+
+// export interface Result {
+//   name: string;
+//   url:  string;
+// }

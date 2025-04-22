@@ -8,6 +8,7 @@ export const Type = ({ typeName }: { typeName: string }) => {
   const updatePokemonsFilterType = usePokemonsStore(state => state.updatePokemonsFilterType)
   const pokemonTypeNumber = usePokemonsStore(state => state.pokemonTypeNumber)
   const setPokemonType = usePokemonsStore(state => state.setPokemonType)
+  const setGender = usePokemonsStore(state => state.setGender)
 
   const handleMouseOn = () => {
     setIsHoverActive(true)
@@ -19,6 +20,7 @@ export const Type = ({ typeName }: { typeName: string }) => {
 
   const handleFilterType = () => {
     const typeNumber = defineTypeNumber(typeName)
+    setGender('')
     setPokemonType(typeNumber)
     updatePokemonsFilterType(typeNumber)
   }

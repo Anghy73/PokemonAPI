@@ -13,11 +13,19 @@ export const ListPokemons = ({ pokemons }: Props) => {
         {
           pokemons.map(pokemon => {
             if (!pokemon) return null
-            const pokeKey = 'pokemon' in pokemon ? pokemon.pokemon.name : pokemon.name
-            const pokeURL = 'pokemon' in pokemon ? pokemon.pokemon.url : pokemon.url
 
+            const pokeKey = 'pokemon' in pokemon 
+              ? pokemon.pokemon.name 
+              : 'pokemon_species' in pokemon && typeof pokemon.pokemon_species === 'object' && pokemon.pokemon_species !== null 
+              ? (pokemon.pokemon_species as { name: string }).name 
+              : pokemon.name
+            const pokeURL = 'pokemon' in pokemon 
+              ? pokemon.pokemon.url 
+              : 'pokemon_species' in pokemon && typeof pokemon.pokemon_species === 'object' && pokemon.pokemon_species !== null 
+              ? (pokemon.pokemon_species as { url: string }).url 
+              : pokemon.url
             return (
-              <CardPokemon key={pokeKey} pokemonURL={pokeURL}></CardPokemon>
+              <CardPokemon key={pokeKey} pokemonURL={pokeURL} name={pokeKey}></CardPokemon>
             )
           }
           )

@@ -1,7 +1,28 @@
 import { create } from "zustand";
-import { fecthPokemonType } from "../services/fecthPokemons";
+import { fecthPokemonType, fetchGender } from "../services/fecthPokemons";
 
-export const usePokemonsStore = create((set, get) => ({
+interface PokemonStore {
+  allPokemons: []
+  matchPokemons: []
+  pokemonName: string
+  pokemons: []
+  pokemonsFilterName: []
+  pokemonsFilterType: []
+  pokemonTypeNumber: null
+  typeIsLoading: boolean
+  gender: string
+  pokemonsFilterGender: []
+  genderIsLoading: boolean
+
+  setGender: (gender : string) => void 
+  setPokemonType: (typeNumber: number | null) => void
+  updatePokemonsFilterType: (typeNumber: number) => void
+  setAllPokemons: (allPokemons: []) => void
+  setPokemonName: (pokemonName: string) => void
+  updateGender: (genderNumber: number | null) => void
+}
+
+export const usePokemonsStore = create<PokemonStore>((set, get) => ({
   allPokemons: [],
   matchPokemons: [],
   pokemonName: '',
@@ -12,6 +33,11 @@ export const usePokemonsStore = create((set, get) => ({
   pokemonTypeNumber: null,
   typeIsLoading: false,
   // typeIsError: false,
+
+  gender: '',
+  pokemonsFilterGender: [],
+  genderIsLoading: false,
+  setGender: (gender: string) => set({ gender }),
 
   setPokemonType: (typeNumber: number) => set({ pokemonTypeNumber: typeNumber }),
 
@@ -31,10 +57,9 @@ export const usePokemonsStore = create((set, get) => ({
 
     }
   },
-  // setMatchPokemons: (matchPokemons) => set({ matchPokemons }),
 
-  setAllPokemons: (allPokemons) => set({ allPokemons }),
-  setPokemonName: (pokemonName) => {
+  setAllPokemons: (allPokemons: []) => set({ allPokemons }),
+  setPokemonName: (pokemonName: string) => {
     const allPokemons = get().allPokemons
     set({ pokemonName })
 
@@ -46,4 +71,21 @@ export const usePokemonsStore = create((set, get) => ({
     
     set({ matchPokemons })
   },
+
+  updateGender: async (genderNumber: number | null) => {
+    set({ genderIsLoading: true })
+
+    try {
+      const res = await fetchGender(genderNumber)
+
+      if (res) {
+        set({ genderIsLoading: false })
+      }
+      
+      set({ pokemonsFilterGender: res })
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 }))
