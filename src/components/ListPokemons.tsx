@@ -9,7 +9,7 @@ export const ListPokemons = ({ pokemons }: Props) => {
   return (
     <>
       <h3 className="text-2xl md:text-4xl font-bold my-30">List of Pokemons</h3>
-      <div className="flex justify-center items-center gap-8 w-full h-full mt-30 flex-wrap gap-y-20">
+      <div className="flex justify-center items-center gap-8 w-full h-full mt-30 mb-20 flex-wrap gap-y-20">
         {
           pokemons.map(pokemon => {
             if (!pokemon) return null

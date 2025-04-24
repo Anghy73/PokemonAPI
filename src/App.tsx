@@ -103,9 +103,6 @@ function App() {
     }
   ]
 
-  console.log('cargando: ' + typeIsLoading);
-  
-
   return (
     <>
       <header className='flex justify-center items-center m-auto max-w-[2000px] overflow-hidden rounded-bl-[100px] rounded-br-[100px] bg-transparent'>
@@ -122,9 +119,11 @@ function App() {
 
         {pokemonType == null && matchPokemons.length > 0 && <ListPokemons pokemons={matchPokemons}></ListPokemons>}
 
+        {matchPokemons.length == 0 && pokemonName != '' && !isLoading && !typeIsLoading && <p className='max-w-3xl m-auto p-4 mt-50 text-2xl rounded-2xl border-2 border-amber-600'>There are no Pokémon with that name at the moment.</p>}
+
         {!genderIsLoading && pokemonType == null && pokemonName == '' && pokemonsFilterGender.length > 0 && gender != '' && <ListPokemons pokemons={pokemonsFilterGender}></ListPokemons>}
 
-        {pokemonsFilterType.length == 0 && typeof pokemonType == 'number' && !isLoading && !typeIsLoading && <p className='max-w-3xl m-auto p-4 mt-50 text-2xl rounded-2xl border-2 border-amber-600'>No hay pokemones de este tipo por el momento</p>}
+        {pokemonsFilterType.length == 0 && typeof pokemonType == 'number' && !isLoading && !typeIsLoading && <p className='max-w-3xl m-auto p-4 mt-50 text-2xl rounded-2xl border-2 border-amber-600'>There are no pokemon of this type at the moment.</p>}
 
         {pokemonsFilterType.length > 0 && pokemonType != null && !typeIsLoading && <ListPokemons pokemons={pokemonsFilterType}></ListPokemons>}
 
@@ -132,7 +131,7 @@ function App() {
 
         {isLoading && <Loader></Loader>}
 
-        {pokemonType == null && pokemonName == '' && gender == '' && !isLoading && !typeIsLoading && genderIsLoading && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-400 cursor-pointer shadow-lg hover:shadow-amber-400 max-w-[200px] mt-25 mb-20 hover:text-amber-400 font-semibold text-lg">Load More ...</button>}
+        {pokemonType == null && pokemonName == '' && gender == '' && !isLoading && !typeIsLoading && !genderIsLoading && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-400 cursor-pointer shadow-lg hover:shadow-amber-400 max-w-[200px] mt-25 mb-20 hover:text-amber-400 font-semibold text-lg">Load More ...</button>}
       </main>
 
     </>

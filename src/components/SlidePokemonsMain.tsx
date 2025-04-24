@@ -24,7 +24,7 @@ function SlidePokemonsMain({ arrMainPokemons }: { arrMainPokemons: PokeMainInfo[
       spaceBetween={0}
       allowTouchMove={false}
       autoplay={{
-        delay: 2500,
+        delay: 3500,
         disableOnInteraction: true
       }}
       loop={true}
