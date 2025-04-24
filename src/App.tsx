@@ -10,9 +10,10 @@ import { Loader } from './components/Loader'
 import { Filters } from './components/Filters'
 import { MainPokemonInfo } from './components/MainPokemonInfo'
 
-
 import venusaurIMG from './assets/img/venusaur.png'
-
+import charizardIMG from './assets/img/charizard.png'
+import blastoiseIMG from './assets/img/blastoise.png'
+import SlidePokemonsMain from './components/SlidePokemonsMain'
 
 function App() {
   const { isLoading, data, fetchNextPage } = useInfiniteQuery<{ pokemons: PokemonsResults[], nextPage: string }>({
@@ -34,15 +35,11 @@ function App() {
   const gender = usePokemonsStore(state => state.gender)
   const genderIsLoading = usePokemonsStore(state => state.genderIsLoading)
 
-
-
-
-
   const mainPokemons = [
     {
       name: 'Venusaur',
-      colorbg1: '#00ff00',
-      colorbg2: '#00ffaa',
+      colorbg1: '#009262',
+      colorbg2: '#00523D',
       img: venusaurIMG,
       type: [
         {
@@ -60,86 +57,82 @@ function App() {
           }
         }
       ],
-      info: 'The plant blooms when it is absorbing solarenergy. It stays on the move to seek sunlight. The flower on its back catches the suns rays. The sunlight is then absorbed and used for energy. By spreading the broad petals of its flower and catching the suns rays, it fills its body with power. It is able to convert sunlight into energy. As aresult, it is more powerful in the summertime. As it warms it self and absorbs the sunlight, its flower petals release a pleasant fragrance.',
+      info: 'The plant blooms when it is absorbing solarenergy. It stays on the move to seek sunlight. The flower on its back catches the suns rays. The sunlight is then absorbed and used for energy. By spreading the broad petals of its flower and catching the suns rays, it fills its body with power. It is able to convert sunlight into energy. As aresult, it is more powerful in the summertime. As it warms it self and absorbs the sunlight, its flower petals release.',
       id: 1
     },
     {
-      name: 'Venusaur',
-      colorbg1: '#00ff00',
-      colorbg2: '#00ffaa',
-      img: venusaurIMG,
+      name: 'Charizard',
+      colorbg1: '#ff6700',
+      colorbg2: '#fb3035',
+      img: charizardIMG,
       type: [
         {
           slot: 1,
           type: {
-            name: "grass",
+            name: "fire",
             url: "..."
           }
         },
         {
           slot: 2,
           type: {
-            name: "poison",
+            name: "flying",
             url: "..."
           }
         }
       ],
-      info: 'The plant blooms when it is absorbing solarenergy. It stays on the move to seek sunlight. The flower on its back catches the suns rays. The sunlight is then absorbed and used for energy. By spreading the broad petals of its flower and catching the suns rays, it fills its body with power. It is able to convert sunlight into energy. As aresult, it is more powerful in the summertime. As it warms it self and absorbs the sunlight, its flower petals release a pleasant fragrance.',
-      id: 1
+      info: 'Spits fire that is hot enough to melt boulders. Known to cause forest fires unintentionally. When expelling a blast of super hot fire, the red flame at the tip of its tail burns more intensely. If CHARIZARD be comes furious, the flame at the tip of its tail flares up in a whitish-blue color. Breathing intense, hot flames, it can melt almost anything. Its breath inflicts terrible pain on enemies. Breathing intense, hot flames, it can melt almost anything.',
+      id: 6
     },
     {
-      name: 'Venusaur',
-      colorbg1: '#00ff00',
-      colorbg2: '#00ffaa',
-      img: venusaurIMG,
+      name: 'Blastoise',
+      colorbg1: '#2882ff',
+      colorbg2: '#00b6dc',
+      img: blastoiseIMG,
       type: [
         {
           slot: 1,
           type: {
-            name: "grass",
-            url: "..."
-          }
-        },
-        {
-          slot: 2,
-          type: {
-            name: "poison",
+            name: "water",
             url: "..."
           }
         }
       ],
-      info: 'The plant blooms when it is absorbing solarenergy. It stays on the move to seek sunlight. The flower on its back catches the suns rays. The sunlight is then absorbed and used for energy. By spreading the broad petals of its flower and catching the suns rays, it fills its body with power. It is able to convert sunlight into energy. As aresult, it is more powerful in the summertime. As it warms it self and absorbs the sunlight, its flower petals release a pleasant fragrance.',
-      id: 1
+      info: 'A brutal POKéMON with pressurized water jets on its shell. They are used for high speed tackles. Once it takes aim at its enemy, it blasts out water with even more force than a fire hose. It deliberately makes itself heavy so it can with stand the recoil of the water jets it fires. The rocket cannons on its shell fire jets of water capable of punching holes through thick steel. It firmly plants its feet on the ground before shooting water from the jets on its back.',
+      id: 9
     }
-
   ]
 
+  console.log('cargando: ' + typeIsLoading);
+  
 
   return (
     <>
-      <header className='w-screen h-[90vh] overflow-hidden rounded-bl-[100px] rounded-br-[100px]'>
-        <div className='bg-red-500 w-full relative'>
-          <MainPokemonInfo arrMainPokemons={mainPokemons}></MainPokemonInfo>
-        </div>
+      <header className='flex justify-center items-center m-auto max-w-[2000px] overflow-hidden rounded-bl-[100px] rounded-br-[100px] bg-transparent'>
+        <SlidePokemonsMain arrMainPokemons={mainPokemons}></SlidePokemonsMain>
       </header>
 
-      <main className='max-w-7xl flex justify-center items-center flex-col m-auto'>
+      <main className='max-w-7xl md:px-10 flex justify-start items-center flex-col m-auto min-h-[110vh]'>
         <Filters></Filters>
-        {typeIsLoading || genderIsLoading && <Loader></Loader>}
+
+
+
+        {typeIsLoading && <Loader></Loader>}
+        {genderIsLoading && <Loader></Loader>}
 
         {pokemonType == null && matchPokemons.length > 0 && <ListPokemons pokemons={matchPokemons}></ListPokemons>}
 
         {!genderIsLoading && pokemonType == null && pokemonName == '' && pokemonsFilterGender.length > 0 && gender != '' && <ListPokemons pokemons={pokemonsFilterGender}></ListPokemons>}
 
-        {pokemonsFilterType.length == 0 && typeof pokemonType == 'number' && !isLoading && !typeIsLoading && <p className='max-w-xl m-auto p-4 mt-20 rounded-2xl border-2 border-amber-600'>No hay pokemones de este tipo por el momento</p>}
+        {pokemonsFilterType.length == 0 && typeof pokemonType == 'number' && !isLoading && !typeIsLoading && <p className='max-w-3xl m-auto p-4 mt-50 text-2xl rounded-2xl border-2 border-amber-600'>No hay pokemones de este tipo por el momento</p>}
 
         {pokemonsFilterType.length > 0 && pokemonType != null && !typeIsLoading && <ListPokemons pokemons={pokemonsFilterType}></ListPokemons>}
 
-        {pokemons.length > 0 && pokemonType == null && pokemonName == '' && gender == '' && <ListPokemons pokemons={pokemons}></ListPokemons>}
+        {!typeIsLoading && pokemons.length > 0 && pokemonType == null && pokemonName == '' && gender == '' && <ListPokemons pokemons={pokemons}></ListPokemons>}
 
         {isLoading && <Loader></Loader>}
 
-        {pokemonType == null && pokemonName == '' && gender == '' && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-400 cursor-pointer shadow-lg hover:shadow-amber-400 max-w-[200px] mt-25 mb-20 hover:text-amber-400 font-semibold text-lg">Load More ...</button>}
+        {pokemonType == null && pokemonName == '' && gender == '' && !isLoading && !typeIsLoading && genderIsLoading && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-400 cursor-pointer shadow-lg hover:shadow-amber-400 max-w-[200px] mt-25 mb-20 hover:text-amber-400 font-semibold text-lg">Load More ...</button>}
       </main>
 
     </>

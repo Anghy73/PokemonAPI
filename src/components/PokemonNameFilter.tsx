@@ -38,7 +38,7 @@ export const PokemonNameFilter = () => {
   return (
     <>
       <div className="flex flex-col items-start gap-2 w-full">
-        <h3 className="font-semibold text-2xl pl-4">Name</h3>
+        <h3 className="font-semibold text-xl md:text-2xl pl-4">Name</h3>
         <form className="w-full flex justify-between items-center gap-2 hover:border-amber-400 h-18 rounded-xl border-2 border-[#282828] max-w-[500px] focus-within:border-amber-400">
           <input onChange={handleChangeName} value={name} className="outline-0 w-full h-full pl-3" type="text" placeholder="Pikachu..." />
         </form>

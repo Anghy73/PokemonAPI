@@ -39,7 +39,7 @@ export const usePokemonsStore = create<PokemonStore>((set, get) => ({
   genderIsLoading: false,
   setGender: (gender: string) => set({ gender }),
 
-  setPokemonType: (typeNumber: number) => set({ pokemonTypeNumber: typeNumber }),
+  setPokemonType: (typeNumber: number | null) => set({ pokemonTypeNumber: typeNumber }),
 
   updatePokemonsFilterType: async (typeNumber: number) => {
     set({ typeIsLoading: true })
