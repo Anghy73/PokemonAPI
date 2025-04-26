@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import { Type } from "../types"
 import { ListTypesCard } from "./ListTypesCard"
 import { Logo } from "./Logo"
@@ -25,7 +26,9 @@ export const MainPokemonInfo = ({ pokeMainInfo: poke }: { pokeMainInfo: PokeMain
                 <ListTypesCard arrTypes={poke.type}></ListTypesCard>
               </div>
               <p className='w-full max-w-3xl text-md md:text-lg font-medium text-start'>{poke.info}</p>
-              <button style={{ transition: 'all 200ms ease-in-out' }} className='w-full bg-[#282828] border-2 border-[#282828] py-3 rounded-md hover:border-amber-400 cursor-pointer shadow-lg hover:text-amber-400 font-semibold'>More Info</button>
+              <Link style={{ width: '100%' }} to={`/pokemon/${poke.id}`}>
+                <button style={{ transition: 'all 200ms ease-in-out' }} className='w-full bg-[#282828] border-2 border-[#282828] py-3 rounded-md hover:border-amber-400 cursor-pointer shadow-lg hover:text-amber-400 font-semibold text-white'>More Info</button>
+              </Link>
             </div>
             <div className='w-full flex justify-center items-center'>
               <img className='w-full max-w-[450px] drop-shadow-[0_20px_20px_rgb(0_0_0/0.6)]' src={poke.img} alt="" />

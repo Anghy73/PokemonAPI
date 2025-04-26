@@ -8,7 +8,6 @@ import { PokemonsResults } from './types'
 import { ListPokemons } from './components/ListPokemons'
 import { Loader } from './components/Loader'
 import { Filters } from './components/Filters'
-import { MainPokemonInfo } from './components/MainPokemonInfo'
 
 import venusaurIMG from './assets/img/venusaur.png'
 import charizardIMG from './assets/img/charizard.png'
@@ -58,7 +57,7 @@ function App() {
         }
       ],
       info: 'The plant blooms when it is absorbing solarenergy. It stays on the move to seek sunlight. The flower on its back catches the suns rays. The sunlight is then absorbed and used for energy. By spreading the broad petals of its flower and catching the suns rays, it fills its body with power. It is able to convert sunlight into energy. As aresult, it is more powerful in the summertime. As it warms it self and absorbs the sunlight, its flower petals release.',
-      id: 1
+      id: 3
     },
     {
       name: 'Charizard',

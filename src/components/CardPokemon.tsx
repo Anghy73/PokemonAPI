@@ -33,12 +33,6 @@ export const CardPokemon = ({ pokemonURL, name }: { pokemonURL: string, name?: s
   const pokeName = pokemonDetails?.name !== undefined ? (pokemonDetails?.name?.charAt(0).toUpperCase() + pokemonDetails?.name?.slice(1)) : ''
   const pokeID = `#${pokemonDetails?.id.toString().padStart(3, '0')}`
 
-  const handleInfoPokemon = () => {
-    const id = pokemonDetails?.id
-    console.log(id)
-  }
-
-
   return (
     <div className="cardPoke w-full max-w-[350px] flex flex-col items-center bg-[#151515] rounded-3xl px-5 py-10 pt-40 relative cursor-pointer">
       <figure className="w-full absolute top-12 flex justify-center items-center">
@@ -53,7 +47,7 @@ export const CardPokemon = ({ pokemonURL, name }: { pokemonURL: string, name?: s
         <ListTypesCard  arrTypes={pokemonDetails?.types}></ListTypesCard>
         <div className="w-full flex justify-center items-center gap-5 px-5">
 
-          <Link to={`/pokemon/${pokemonDetails?.id}`} onClick={handleInfoPokemon} style={{ transition: 'all 200ms ease-in-out' }} className="flex justify-center items-center w-full bg-transparent border-2 border-[#282828] p-2 py-3 rounded-md hover:border-blue-500 cursor-pointer shadow-lg hover:shadow-blue-900 text-[#595959] hover:text-blue-500"><FaInfo></FaInfo></Link>
+          <Link to={`/pokemon/${pokemonDetails?.id}`} style={{ transition: 'all 200ms ease-in-out' }} className="flex justify-center items-center w-full bg-transparent border-2 border-[#282828] p-2 py-3 rounded-md hover:border-blue-500 cursor-pointer shadow-lg hover:shadow-blue-900 text-[#595959] hover:text-blue-500"><FaInfo></FaInfo></Link>
 
 
 

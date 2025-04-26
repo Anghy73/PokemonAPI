@@ -3,8 +3,13 @@ import { Link, useParams } from "react-router"
 import { Chart as ChartJS, Filler, Legend, LineElement, PointElement, RadialLinearScale, Tooltip } from 'chart.js'
 import { Radar } from 'react-chartjs-2'
 import { useEffect, useState } from "react";
-import { PokemonDetails } from "../types";
+import { PokemonDetails, PokemonSpecies } from "../types";
 import { FaArrowLeft, FaHeart } from "react-icons/fa";
+
+import imgLoad from '../assets/img/nofound.png'
+import { defineType } from "../utilities/defineType";
+import { ListTypesCard } from "./ListTypesCard";
+import { CardPokemon } from "./CardPokemon";
 
 ChartJS.register(
   RadialLinearScale,
@@ -42,8 +47,8 @@ const options = {
         color: 'rgba(255, 255, 255, 0.3)',
       },
       ticks: {
-        color: 'white',
-        backdropColor: 'rgba(255, 255, 255, 00)',
+        color: '#777',
+        backdropColor: 'rgba(255, 255, 255, 0)',
         font: {
           size: 15,
         }
@@ -61,41 +66,42 @@ const options = {
 function PokemonInfo() {
 
   const [showShiny, setShowShiny] = useState(false)
+  const [activeTab, setActiveTab] = useState(0)
 
   const { pokeId } = useParams()
   const [pokeInfo, setPokeInfo] = useState<PokemonDetails>()
+  const [pokeSpecie, setPokeSpecie] = useState<PokemonSpecies>()
+
+  // console.log(pokeSpecie);
 
 
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`)
-      .then(async res => await res.json())
-      .then(res => setPokeInfo(res))
-  }, [])
-
+  const selectTab = (index: number) => {
+    setActiveTab(index)
+  }
   // console.log(pokeId);
   console.log(pokeInfo);
 
   const statsLabels = pokeInfo?.stats.map(stat => stat.stat.name) ?? []
   const statsData = pokeInfo?.stats.map(stat => stat.base_stat) ?? []
-  // console.log(statsData);
-
-
-  // const stats: Array<string> = ['HP', 'Speed', 'Attack']
+  const typePokemon = pokeInfo?.types[0].type.name
+  const pokeName = pokeInfo?.name !== undefined ? (pokeInfo?.name?.charAt(0).toUpperCase() + pokeInfo?.name?.slice(1)) : ''
 
   const data = {
     labels: statsLabels,
     datasets: [
       {
-        label: 'Pokemon', //pokemon name
+        label: pokeName,
         data: statsData,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: `${defineType({ type: typePokemon }).color}33`,
+        borderColor: `${defineType({ type: typePokemon }).color}`,
       },
     ],
   };
 
   const backImg = pokeInfo?.sprites.back_default ?? false
   const pokeID = `#${pokeInfo?.id.toString().padStart(3, '0')}`
+  const text1 = pokeSpecie?.flavor_text_entries[0]?.flavor_text == undefined ? '' : pokeSpecie?.flavor_text_entries[0].flavor_text
+  const text2 = pokeSpecie?.flavor_text_entries[2]?.flavor_text == undefined ? '' : pokeSpecie?.flavor_text_entries[2].flavor_text
 
 
   const handleShowShiny = () => {
@@ -104,25 +110,23 @@ function PokemonInfo() {
 
 
   return (
-    <div className="w-screen h-screen flex">
+    <div className="w-screen min-h-screen flex flex-col lg:flex-row justify-center pt-30 md:pt-15 px-5">
       <Link to='/'>
         <div className="absolute top-10 left-10 text-2xl text-[#484848] hover:text-[#a8a8a8] cursor-pointer border-2 border-[#484848] hover:border-[#a8a8a8] p-2 rounded-full">
           <FaArrowLeft />
         </div>
       </Link>
 
-
-      {/* img del pokemon ver adelante y atras, #0id, button de agregar a me gusta, abajo button de isShiny y mostrar su forma Shiny */}
-      <div className="flex flex-col gap-5 justify-center items-center w-full h-full">
+      <div className="flex flex-col gap-5 justify-center items-center w-full h-full pt-10">
         <span className="text-2xl rounded-full w-full max-w-[300px] py-1 px-4 border-2 border-[#282828] cursor-pointer hover:border-amber-400">{pokeID}</span>
         <div style={backImg ? {} : { pointerEvents: 'none' }} className="cardContainer">
           <div className="cardContent">
             <div className="cardFront">
               {
                 showShiny ?
-                  <img className="animate-[pulse_800ms] [animation-iteration-count:2]" src={pokeInfo?.sprites.front_shiny} alt="" />
+                  <img className="animate-[pulse_800ms] [animation-iteration-count:2]" src={pokeInfo?.sprites.front_shiny !== null ? pokeInfo?.sprites.front_shiny : imgLoad} />
                   :
-                  <img src={pokeInfo?.sprites.front_default} alt={`image of the pokemon ${pokeInfo?.name}`} />
+                  <img src={pokeInfo?.sprites.front_default !== null ? pokeInfo?.sprites.front_default : imgLoad} alt={`image of the pokemon ${pokeInfo?.name}`} />
               }
             </div>
             <div className="cardBack">
@@ -143,9 +147,98 @@ function PokemonInfo() {
 
 
       {/* about - stats -  */}
-      <div className="w-full">
-        <div className="flex justify-center items-center m-auto mt-20 max-w-[500px]">
-          <Radar options={options} data={data} ></Radar>
+      <div className="flex flex-col items-center w-full py-10 lg:py-0">
+        <ul className="grid grid-cols-4 w-full max-w-[600px] justify-items-stretch items-start">
+          <li style={activeTab == 0 ? { borderBottomColor: '#ffb900' } : {}} className="flex justify-center items-center p-2 px-4 h-15 border-b-2 border-b-transparent cursor-pointer font-bold" onClick={() => selectTab(0)}>Details</li>
+          <li style={activeTab == 1 ? { borderBottomColor: '#ffb900' } : {}} className="flex justify-center items-center p-2 px-4 h-15 border-b-2 border-b-transparent cursor-pointer font-bold" onClick={() => selectTab(1)}>Stats</li>
+          <li style={activeTab == 2 ? { borderBottomColor: '#ffb900' } : {}} className="flex justify-center items-center p-2 px-4 h-15 border-b-2 border-b-transparent cursor-pointer font-bold" onClick={() => selectTab(2)}>Forms</li>
+          <li style={activeTab == 3 ? { borderBottomColor: '#ffb900' } : {}} className="flex justify-center items-center p-2 px-4 h-15 border-b-2 border-b-transparent cursor-pointer font-bold" onClick={() => selectTab(3)}>Skills</li>
+        </ul>
+
+        <div className="w-full min-w-[280px] max-w-[600px]">
+          {activeTab == 0 ?
+            <div className="flex flex-col w-full gap-10 mt-10">
+              <div className="flex flex-wrap justify-around items-center gap-8 lg:px-20 md:px-10">
+                <div className="flex flex-col text-xl">
+                  <span className="font-bold text-2xl text-amber-400">{pokeInfo?.height}</span>
+                  <span className="text-[#585858] font-semibold">Height</span>
+                </div>
+                <div className="flex flex-col text-xl">
+                  <span className="font-bold text-2xl text-amber-400">{pokeInfo?.weight}</span>
+                  <span className="text-[#585858] font-semibold">Weight</span>
+                </div>
+                <div className="flex flex-col text-xl">
+                  <span className="font-bold text-2xl text-amber-400">{pokeInfo?.base_experience}</span>
+                  <span className="text-[#585858] font-semibold">EXP Base</span>
+                </div>
+                <div className="flex flex-col text-xl">
+                  <span className="font-bold text-2xl text-amber-400">{pokeSpecie?.base_happiness}</span>
+                  <span className="text-[#585858] font-semibold">Happiness Base</span>
+                </div>
+                <div className="flex flex-col text-xl">
+                  <span className="font-bold text-2xl text-amber-400">{pokeSpecie?.capture_rate}</span>
+                  <span className="text-[#585858] font-semibold">Capture Rate</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col w-full gap-4 justify-center items-start text-amber-400 text-lg text-start">
+                <h4 className="text-2xl font-semibold text-white">Characteristics</h4>
+                <p className="pr-5">{text1}</p>
+                <p className="pr-5">{text2}</p>
+              </div>
+
+              <div className="flex flex-col items-start gap-6">
+                <p className="text-2xl font-semibold">Type</p>
+                <div className="flex">
+                  <ListTypesCard arrTypes={pokeInfo?.types}></ListTypesCard>
+                </div>
+              </div>
+            </div> : null}
+          {activeTab == 1 ? <div className="flex justify-center items-center m-auto mt-10 max-w-[500px]"><Radar options={options} data={data} ></Radar></div> : null}
+
+
+          {activeTab == 2 ?
+            <div className="w-full max-w-[600px] flex mt-10 overflow-auto gap-5">
+              {
+                pokeSpecie?.varieties.map(variant => (
+                  <div className="min-w-[300px] pt-20">
+                    <CardPokemon pokemonURL={variant.pokemon.url}></CardPokemon>
+                  </div>
+                ))
+              }
+            </div>
+            : null}
+
+
+          {activeTab == 3 ?
+            <div className="flex flex-col gap-5 pt-8">
+              <div className="flex flex-col items-start gap-3">
+                <h3 className="font-semibold text-xl text-amber-400">Abilities</h3>
+                <div>
+                  {
+                    pokeInfo?.abilities.map(abi => (
+                      <div className="flex gap-2 text-lg pl-8">
+                        <p>Slot {abi.slot}:</p>
+                        <span className="font-bold">{abi.ability?.name}</span>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+              <div className="flex flex-col items-start gap-3">
+                <h3 className="font-semibold text-xl text-amber-400">Moves</h3>
+                <div className="flex flex-wrap max-h-80 overflow-auto">
+                  {
+                    pokeInfo?.moves.map(mov => (
+                      <div className="flex gap-2 text-lg pl-8">
+                        <span className="font-bold">{mov.move.name}</span>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+            : null}
         </div>
       </div>
     </div>

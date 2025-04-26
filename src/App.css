@@ -4,6 +4,8 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -124,9 +126,11 @@
 /* Card Pokemon */
 
 .cardContainer {
-  width: 400px;
+  width: 100%;
+  min-width: 300px;
+  max-width: 400px;
   height: 400px;
-  padding: 1rem;
+  /* padding: 1rem; */
   cursor: pointer;
 
   perspective: 1000px;
