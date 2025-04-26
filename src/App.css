@@ -119,3 +119,43 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+
+/* Card Pokemon */
+
+.cardContainer {
+  width: 400px;
+  height: 400px;
+  padding: 1rem;
+  cursor: pointer;
+
+  perspective: 1000px;
+}
+
+.cardContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .8s;
+  transform-style: preserve-3d;
+}
+
+.cardContainer:hover .cardContent {
+  transform: rotateY(180deg)
+}
+
+.cardFront, .cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+}
+
+.cardContent img {
+  width: 100%;
+  height: 100%;
+}
