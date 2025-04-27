@@ -122,18 +122,23 @@ function PokemonInfo() {
   }
 
   const handleFavPoke = () => {
-    const pokemon = {
-      url: `https://pokeapi.co/api/v2/pokemon/${pokeInfo?.id}`,
-      name: pokeInfo?.name
+    if (!pokeInfo?.name) {
+      // toast('Pokemon name is undefined');
+      return;
     }
+
+    const pokemon = {
+      url: `https://pokeapi.co/api/v2/pokemon/${pokeInfo.id}`,
+      name: pokeInfo.name
+    };
 
     if (isFav) {
-      toast('Pokemon eliminated')
-      return addPokeFav(pokemon)
+      toast('Pokemon eliminated');
+      return addPokeFav(pokemon);
     }
 
-    toast('Add to fav')
-    addPokeFav(pokemon)
+    toast('Add to fav');
+    addPokeFav(pokemon);
   }
 
 
