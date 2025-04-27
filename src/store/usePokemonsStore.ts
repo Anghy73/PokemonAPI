@@ -3,7 +3,9 @@ import { fecthPokemonType, fetchGender } from "../services/fecthPokemons";
 
 interface PokemonStore {
   allPokemons: { name: string }[]
-  matchPokemons: { name: string }[]
+  matchPokemons: {
+    url: string; name: string 
+}[]
   pokemonName: string
   pokemons: []
   pokemonsFilterName: []
@@ -64,7 +66,9 @@ export const usePokemonsStore = create<PokemonStore>((set, get) => ({
     set({ pokemonName })
 
 
-    const matchPokemons = allPokemons.filter(poke => poke.name.startsWith(pokemonName))
+    const matchPokemons = allPokemons
+      .filter(poke => poke.name.startsWith(pokemonName))
+      .map(poke => ({ name: poke.name, url: `https://pokeapi.co/api/v2/pokemon/${poke.name}` }))
     if (matchPokemons.length == allPokemons.length) {
       return set({ matchPokemons: [] })
     }
