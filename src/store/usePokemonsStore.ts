@@ -2,13 +2,13 @@ import { create } from "zustand";
 import { fecthPokemonType, fetchGender } from "../services/fecthPokemons";
 
 interface PokemonStore {
-  allPokemons: []
-  matchPokemons: []
+  allPokemons: { name: string }[]
+  matchPokemons: { name: string }[]
   pokemonName: string
   pokemons: []
   pokemonsFilterName: []
   pokemonsFilterType: []
-  pokemonTypeNumber: null
+  pokemonTypeNumber: number | null
   typeIsLoading: boolean
   gender: string
   pokemonsFilterGender: []
@@ -17,7 +17,7 @@ interface PokemonStore {
   setGender: (gender: string) => void
   setPokemonType: (typeNumber: number | null) => void
   updatePokemonsFilterType: (typeNumber: number) => void
-  setAllPokemons: (allPokemons: []) => void
+  setAllPokemons: (allPokemons: { name: string }[]) => void
   setPokemonName: (pokemonName: string) => void
   updateGender: (genderNumber: number | null) => void
 }
@@ -58,7 +58,7 @@ export const usePokemonsStore = create<PokemonStore>((set, get) => ({
     }
   },
 
-  setAllPokemons: (allPokemons: []) => set({ allPokemons }),
+  setAllPokemons: (allPokemons: { name: string }[]) => set({ allPokemons }),
   setPokemonName: (pokemonName: string) => {
     const allPokemons = get().allPokemons
     set({ pokemonName })

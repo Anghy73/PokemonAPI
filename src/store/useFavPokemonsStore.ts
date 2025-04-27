@@ -1,11 +1,10 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { PokemonsResults } from '../types'
-import { toast } from 'sonner'
 
 interface FavPokemons {
   pokemonsFav: PokemonsResults[]
-  addPokeFav: (pokemon: {url: string, name?: string | undefined}) => void
+  addPokeFav: (pokemon: {url: string, name: string}) => void
   delPokeFav: (name: string) => void
 }
 
