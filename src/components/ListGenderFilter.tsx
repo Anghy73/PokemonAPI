@@ -1,6 +1,6 @@
 import { FaGenderless } from "react-icons/fa6";
 import { IoIosFemale, IoIosMale } from "react-icons/io"
-import { usePokemonsStore } from "../store/usePokemons";
+import { usePokemonsStore } from "../store/usePokemonsStore";
 import { defineGender } from "../utilities/defineGender";
 
 export const ListGenderFilter = () => {

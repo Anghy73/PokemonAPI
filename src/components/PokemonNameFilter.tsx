@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllPokemons } from "../services/fecthPokemons"
-import { usePokemonsStore } from "../store/usePokemons"
+import { usePokemonsStore } from "../store/usePokemonsStore"
 import { useEffect, useState } from "react"
 import { useDebounce } from "use-debounce"
 

@@ -445,3 +445,8 @@ export interface Variety {
   is_default: boolean;
   pokemon:    Color;
 }
+
+export interface PokemonsFav {
+  pokemonURL: string
+  name?: string | null
+}

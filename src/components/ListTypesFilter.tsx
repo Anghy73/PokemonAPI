@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Species } from "../types"
 import { MdFilterAltOff } from "react-icons/md"
 import { fecthPokemonsTypes } from "../services/fecthPokemons"
-import { usePokemonsStore } from "../store/usePokemons"
+import { usePokemonsStore } from "../store/usePokemonsStore"
 import { Type } from "./Type"
 
 export const ListTypesFilter = () => {

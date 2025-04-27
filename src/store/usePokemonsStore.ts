@@ -14,7 +14,7 @@ interface PokemonStore {
   pokemonsFilterGender: []
   genderIsLoading: boolean
 
-  setGender: (gender : string) => void 
+  setGender: (gender: string) => void
   setPokemonType: (typeNumber: number | null) => void
   updatePokemonsFilterType: (typeNumber: number) => void
   setAllPokemons: (allPokemons: []) => void
@@ -28,6 +28,7 @@ export const usePokemonsStore = create<PokemonStore>((set, get) => ({
   pokemonName: '',
   pokemons: [],
   pokemonsFilterName: [],
+  pokemonsFav: [],
 
   pokemonsFilterType: [],
   pokemonTypeNumber: null,
@@ -68,7 +69,7 @@ export const usePokemonsStore = create<PokemonStore>((set, get) => ({
     if (matchPokemons.length == allPokemons.length) {
       return set({ matchPokemons: [] })
     }
-    
+
     set({ matchPokemons })
   },
 
@@ -81,11 +82,10 @@ export const usePokemonsStore = create<PokemonStore>((set, get) => ({
       if (res) {
         set({ genderIsLoading: false })
       }
-      
+
       set({ pokemonsFilterGender: res })
     } catch (error) {
       console.log(error);
-      
     }
-  }
+  },
 }))

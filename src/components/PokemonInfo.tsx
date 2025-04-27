@@ -72,14 +72,21 @@ function PokemonInfo() {
   const [pokeInfo, setPokeInfo] = useState<PokemonDetails>()
   const [pokeSpecie, setPokeSpecie] = useState<PokemonSpecies>()
 
-  // console.log(pokeSpecie);
+  useEffect(() => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`)
+      .then(async res => await res.json())
+      .then(res => setPokeInfo(res))
+  }, [pokeId])
 
+  useEffect(() => {
+    fetch(`${pokeInfo?.species.url}`)
+      .then(async res => await res.json())
+      .then(res => setPokeSpecie(res))
+  }, [pokeInfo, pokeId])
 
   const selectTab = (index: number) => {
     setActiveTab(index)
   }
-  // console.log(pokeId);
-  console.log(pokeInfo);
 
   const statsLabels = pokeInfo?.stats.map(stat => stat.stat.name) ?? []
   const statsData = pokeInfo?.stats.map(stat => stat.base_stat) ?? []

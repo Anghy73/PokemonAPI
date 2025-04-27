@@ -2,13 +2,14 @@ import { PokemonsResults, PokemonsResultsTypes } from "../types";
 import { CardPokemon } from "./CardPokemon"
 
 interface Props {
+  title?: string
   pokemons: (PokemonsResults | PokemonsResultsTypes | undefined)[]
 }
 
-export const ListPokemons = ({ pokemons }: Props) => {
+export const ListPokemons = ({ pokemons, title }: Props) => {
   return (
     <>
-      <h3 className="text-2xl md:text-4xl font-bold my-30">List of Pokemons</h3>
+      <h3 className="text-2xl md:text-4xl font-bold my-30">{title ?? 'List of Pokemons'}</h3>
       <div className="flex justify-center items-center gap-8 w-full h-full mt-30 mb-20 flex-wrap gap-y-20">
         {
           pokemons.map(pokemon => {

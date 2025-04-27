@@ -2,17 +2,20 @@ import './App.css'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 import { fecthPokemons } from './services/fecthPokemons'
-import { usePokemonsStore } from './store/usePokemons'
+import { usePokemonsStore } from './store/usePokemonsStore'
 import { PokemonsResults } from './types'
 
 import { ListPokemons } from './components/ListPokemons'
 import { Loader } from './components/Loader'
 import { Filters } from './components/Filters'
 
+import { BsBackpack2 } from "react-icons/bs";
+
 import venusaurIMG from './assets/img/venusaur.png'
 import charizardIMG from './assets/img/charizard.png'
 import blastoiseIMG from './assets/img/blastoise.png'
 import SlidePokemonsMain from './components/SlidePokemonsMain'
+import { Link } from 'react-router'
 
 function App() {
   const { isLoading, data, fetchNextPage } = useInfiniteQuery<{ pokemons: PokemonsResults[], nextPage: string }>({
@@ -103,15 +106,16 @@ function App() {
   ]
 
   return (
-    <>
+    <div className='relative'>
+      <Link to='/favPage'>
+        <div className='fixed top-10 right-10 flex justify-center items-center w-15 h-15 border-4 border-[#282828] rounded-2xl z-10 text-3xl text-[#282828] hover:text-amber-400 hover:border-amber-400'><BsBackpack2 /></div>
+      </Link>
       <header className='flex justify-center items-center m-auto max-w-[2000px] overflow-hidden rounded-bl-[100px] rounded-br-[100px] bg-transparent'>
         <SlidePokemonsMain arrMainPokemons={mainPokemons}></SlidePokemonsMain>
       </header>
 
       <main className='max-w-7xl md:px-10 flex justify-start items-center flex-col m-auto min-h-[110vh]'>
         <Filters></Filters>
-
-
 
         {typeIsLoading && <Loader></Loader>}
         {genderIsLoading && <Loader></Loader>}
@@ -132,8 +136,7 @@ function App() {
 
         {pokemonType == null && pokemonName == '' && gender == '' && !isLoading && !typeIsLoading && !genderIsLoading && <button onClick={() => fetchNextPage()} style={{ transition: 'all 200ms ease-in-out' }} className="w-full bg-transparent border-2 border-[#282828] p-3 rounded-md hover:border-amber-400 cursor-pointer shadow-lg hover:shadow-amber-400 max-w-[200px] mt-25 mb-20 hover:text-amber-400 font-semibold text-lg">Load More ...</button>}
       </main>
-
-    </>
+    </div>
   )
 }
 

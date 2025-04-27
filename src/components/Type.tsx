@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { usePokemonsStore } from "../store/usePokemons"
+import { usePokemonsStore } from "../store/usePokemonsStore"
 import { defineType } from "../utilities/defineType"
 import { defineTypeNumber } from "../utilities/defineTypeNumber"
 
