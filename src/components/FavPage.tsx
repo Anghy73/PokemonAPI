@@ -13,7 +13,7 @@ function FavPage() {
           <FaArrowLeft />
         </div>
       </Link>
-      <div className="w-full">
+      <div className="w-full max-w-7xl">
         <ListPokemons pokemons={pokemonsFav} title="List of favorites Pokemons"></ListPokemons>
       </div>
     </div>
