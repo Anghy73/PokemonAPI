@@ -3,7 +3,7 @@ import './index.css'
 import App from './App.tsx'
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Route } from 'react-router'
 import { Routes } from 'react-router'
 import PokemonInfo from './components/PokemonInfo.tsx'
@@ -22,6 +22,6 @@ createRoot(document.getElementById('root')!).render(
       </Routes>
     </BrowserRouter>
 
-    <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
+    {/* <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools> */}
   </QueryClientProvider>
 )

@@ -12,6 +12,7 @@ import { ListTypesCard } from "./ListTypesCard";
 import { CardPokemon } from "./CardPokemon";
 import { useFavPokemonsStore } from "../store/useFavPokemonsStore";
 import { fecthPokemon } from "../services/fecthPokemons";
+import { toast, Toaster } from "sonner";
 
 ChartJS.register(
   RadialLinearScale,
@@ -125,12 +126,20 @@ function PokemonInfo() {
       url: `https://pokeapi.co/api/v2/pokemon/${pokeInfo?.id}`,
       name: pokeInfo?.name
     }
+
+    if (isFav) {
+      toast('Pokemon eliminated')
+      return addPokeFav(pokemon)
+    }
+
+    toast('Add to fav')
     addPokeFav(pokemon)
   }
 
 
   return (
     <div className="w-screen min-h-screen flex flex-col lg:flex-row justify-center pt-30 md:pt-15 px-5">
+      <Toaster></Toaster>
       <Link to='/'>
         <div className="absolute top-10 left-10 text-2xl text-[#484848] hover:text-[#a8a8a8] cursor-pointer border-2 border-[#484848] hover:border-[#a8a8a8] p-2 rounded-full">
           <FaArrowLeft />

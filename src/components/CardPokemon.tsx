@@ -10,6 +10,7 @@ import { ListTypesCard } from "./ListTypesCard"
 import imgLoad from '../assets/img/nofound.png'
 import { Link } from "react-router"
 import { useFavPokemonsStore } from "../store/useFavPokemonsStore"
+import { toast } from "sonner"
 
 export const CardPokemon = ({ pokemonURL, name }: { pokemonURL: string, name?: string }) => {
   const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
@@ -35,12 +36,23 @@ export const CardPokemon = ({ pokemonURL, name }: { pokemonURL: string, name?: s
   const pokeID = `#${pokemonDetails?.id.toString().padStart(3, '0')}`
   const isFav = pokemonsFav.find(poke => poke.name == name)
 
+  // const handleDelPoke = (poke) => {
+  //   addPokeFav(poke)
+  // }
   const handleFavPoke = () => {
     const pokemon = {
       url: pokemonURL,
       name: name ?? ''
     }
+
+    if (isFav) {
+      toast('Pokemon eliminated')
+      return addPokeFav(pokemon)
+    }
+
     addPokeFav(pokemon)
+
+    toast('Add to fav')
   }
 
   return (

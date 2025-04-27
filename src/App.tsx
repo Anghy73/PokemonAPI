@@ -17,6 +17,8 @@ import blastoiseIMG from './assets/img/blastoise.png'
 import SlidePokemonsMain from './components/SlidePokemonsMain'
 import { Link } from 'react-router'
 
+import { Toaster } from 'sonner'
+
 function App() {
   const { isLoading, data, fetchNextPage } = useInfiniteQuery<{ pokemons: PokemonsResults[], nextPage: string }>({
     queryKey: ['pokemons'],
@@ -107,6 +109,7 @@ function App() {
 
   return (
     <div className='relative'>
+      <Toaster></Toaster>
       <Link to='/favPage'>
         <div className='fixed top-10 right-10 flex justify-center items-center w-15 h-15 border-4 border-[#282828] rounded-2xl z-10 text-3xl text-[#282828] hover:text-amber-400 hover:border-amber-400'><BsBackpack2 /></div>
       </Link>

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { PokemonsResults } from '../types'
+import { toast } from 'sonner'
 
 interface FavPokemons {
   pokemonsFav: PokemonsResults[]
