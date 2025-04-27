@@ -20,10 +20,11 @@ import { Link } from 'react-router'
 import { Toaster } from 'sonner'
 
 function App() {
-  const { isLoading, data, fetchNextPage } = useInfiniteQuery<{ pokemons: PokemonsResults[], nextPage: string }>({
+  const { isLoading, data, fetchNextPage } = useInfiniteQuery<{ pokemons: PokemonsResults[], nextPage: number }>({
     queryKey: ['pokemons'],
-    queryFn: ({ pageParam }: { pageParam: number }) => fecthPokemons({ offset: pageParam, limitValue: 15 }),
+    queryFn: ({ pageParam = 0 }) => fecthPokemons({ offset: pageParam as number, limitValue: 15 }),
     getNextPageParam: (lastPage) => lastPage.nextPage,
+    initialPageParam: 0,
     refetchOnWindowFocus: false,
   })
 
