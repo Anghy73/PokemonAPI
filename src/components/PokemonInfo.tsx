@@ -123,7 +123,6 @@ function PokemonInfo() {
 
   const handleFavPoke = () => {
     if (!pokeInfo?.name) {
-      // toast('Pokemon name is undefined');
       return;
     }
 
@@ -151,7 +150,7 @@ function PokemonInfo() {
         </div>
       </Link>
 
-      <div className="flex flex-col gap-5 justify-center items-center w-full h-full pt-10">
+      <div className="flex flex-col gap-5 justify-center items-center w-full h-full pt-3">
         <div className="flex flex-col gap-5">
           <span className="text-4xl w-full max-w-[300px]">{pokeName}</span>
           <span className="text-2xl rounded-full w-full max-w-[300px] py-1 px-4 border-2 border-[#282828] cursor-pointer hover:border-amber-400">{pokeID}</span>
@@ -161,9 +160,9 @@ function PokemonInfo() {
             <div className="cardFront">
               {
                 showShiny ?
-                  <img className="animate-[pulse_800ms] [animation-iteration-count:2]" src={pokeInfo?.sprites.front_shiny !== null ? pokeInfo?.sprites.front_shiny : imgLoad} />
+                  <img className="h-[300px] sm:h-[400px] animate-[pulse_800ms] [animation-iteration-count:2]" src={pokeInfo?.sprites.front_shiny !== null ? pokeInfo?.sprites.front_shiny : imgLoad} />
                   :
-                  <img src={pokeInfo?.sprites.front_default !== null ? pokeInfo?.sprites.front_default : imgLoad} alt={`image of the pokemon ${pokeInfo?.name}`} />
+                  <img className="h-[300px] sm:h-[400px]" src={pokeInfo?.sprites.front_default !== null ? pokeInfo?.sprites.front_default : imgLoad} alt={`image of the pokemon ${pokeInfo?.name}`} />
               }
             </div>
             <div className="cardBack">
