@@ -14,7 +14,7 @@ Website created primarily to practice different React.js tools.
 ![Page Screenshot 4](https://i.imgur.com/ql0OBzv.png)
 
 
-## List Technology
+## List Technology and Tools
 
 - Zustand 
 - React Router 
@@ -23,6 +23,10 @@ Website created primarily to practice different React.js tools.
 - TypeScript
 - Tailwindcss
 - React Icons
+- Sonner
+- swiper
+- Chart.js
+- Use-Debounce
 
 ## Run Locally
 
