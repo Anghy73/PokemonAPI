@@ -13,6 +13,12 @@ export const fecthPokemons = async ({ offset = 0, limitValue = 0 }: { offset?: n
   }
 }
 
+export const fecthPokemon = async (id: number) => {
+  const response = await fetch(`${BASE_URL_API}/pokemon/${id}`)
+  const json = await response.json()
+  return json
+}
+
 export const fecthPokemonsTypes = async () => {
   const response = await fetch(`${BASE_URL_API}/type`)
   const json = await response.json()

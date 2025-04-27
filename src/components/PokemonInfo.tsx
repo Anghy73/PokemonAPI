@@ -10,6 +10,8 @@ import imgLoad from '../assets/img/nofound.png'
 import { defineType } from "../utilities/defineType";
 import { ListTypesCard } from "./ListTypesCard";
 import { CardPokemon } from "./CardPokemon";
+import { useFavPokemonsStore } from "../store/useFavPokemonsStore";
+import { fecthPokemon } from "../services/fecthPokemons";
 
 ChartJS.register(
   RadialLinearScale,
@@ -71,10 +73,12 @@ function PokemonInfo() {
   const { pokeId } = useParams()
   const [pokeInfo, setPokeInfo] = useState<PokemonDetails>()
   const [pokeSpecie, setPokeSpecie] = useState<PokemonSpecies>()
+  const pokemonsFav = useFavPokemonsStore(state => state.pokemonsFav)
+  const addPokeFav = useFavPokemonsStore(state => state.addPokeFav)
+  const id = Number(pokeId)
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`)
-      .then(async res => await res.json())
+    fecthPokemon(id)
       .then(res => setPokeInfo(res))
   }, [pokeId])
 
@@ -109,10 +113,19 @@ function PokemonInfo() {
   const pokeID = `#${pokeInfo?.id.toString().padStart(3, '0')}`
   const text1 = pokeSpecie?.flavor_text_entries[0]?.flavor_text == undefined ? '' : pokeSpecie?.flavor_text_entries[0].flavor_text
   const text2 = pokeSpecie?.flavor_text_entries[2]?.flavor_text == undefined ? '' : pokeSpecie?.flavor_text_entries[2].flavor_text
+  const isFav = pokemonsFav.find(poke => poke.name == pokeInfo?.name)
 
 
   const handleShowShiny = () => {
     setShowShiny(!showShiny)
+  }
+
+  const handleFavPoke = () => {
+    const pokemon = {
+      url: `https://pokeapi.co/api/v2/pokemon/${pokeInfo?.id}`,
+      name: pokeInfo?.name
+    }
+    addPokeFav(pokemon)
   }
 
 
@@ -125,7 +138,10 @@ function PokemonInfo() {
       </Link>
 
       <div className="flex flex-col gap-5 justify-center items-center w-full h-full pt-10">
-        <span className="text-2xl rounded-full w-full max-w-[300px] py-1 px-4 border-2 border-[#282828] cursor-pointer hover:border-amber-400">{pokeID}</span>
+        <div className="flex flex-col gap-5">
+          <span className="text-4xl w-full max-w-[300px]">{pokeName}</span>
+          <span className="text-2xl rounded-full w-full max-w-[300px] py-1 px-4 border-2 border-[#282828] cursor-pointer hover:border-amber-400">{pokeID}</span>
+        </div>
         <div style={backImg ? {} : { pointerEvents: 'none' }} className="cardContainer">
           <div className="cardContent">
             <div className="cardFront">
@@ -148,7 +164,7 @@ function PokemonInfo() {
         </div>
         <div className="flex justify-center items-center gap-2 w-full">
           <button onClick={handleShowShiny} style={showShiny ? { borderColor: '#ffb900', color: '#ffb900' } : {}} className="w-full max-w-[300px] flex justify-center items-center  bg-[#282828] border-2 border-[#282828] p-2 py-3 rounded-md hover:border-amber-600 cursor-pointer shadow-lg hover:text-amber-600 text-white font-semibold hover:text-amber-400-500">Show Shiny</button>
-          <button className="flex justify-center items-center p-2 rounded-lg h-full w-15 cursor-pointer border-2 border-[#383838] text-xl text-[#383838] hover:text-red-500 hover:border-red-500"><FaHeart></FaHeart></button>
+          <button onClick={handleFavPoke} style={{color: isFav ? '#fb2c36' : '', borderColor: isFav ? '#fb2c36' : ''}} className="flex justify-center items-center p-2 rounded-lg h-13 w-15 cursor-pointer border-2 border-[#383838] text-xl text-[#383838] hover:text-red-500 hover:border-red-500"><FaHeart></FaHeart></button>
         </div>
       </div>
 
@@ -208,8 +224,8 @@ function PokemonInfo() {
             <div className="w-full max-w-[600px] flex mt-10 overflow-auto gap-5">
               {
                 pokeSpecie?.varieties.map(variant => (
-                  <div className="min-w-[300px] pt-20">
-                    <CardPokemon pokemonURL={variant.pokemon.url}></CardPokemon>
+                  <div key={variant.pokemon.name} className="min-w-[300px] pt-20">
+                    <CardPokemon pokemonURL={variant.pokemon.url} name={variant.pokemon.name}></CardPokemon>
                   </div>
                 ))
               }
@@ -224,7 +240,7 @@ function PokemonInfo() {
                 <div>
                   {
                     pokeInfo?.abilities.map(abi => (
-                      <div className="flex gap-2 text-lg pl-8">
+                      <div key={abi.slot} className="flex gap-2 text-lg pl-8">
                         <p>Slot {abi.slot}:</p>
                         <span className="font-bold">{abi.ability?.name}</span>
                       </div>
@@ -237,7 +253,7 @@ function PokemonInfo() {
                 <div className="flex flex-wrap max-h-80 overflow-auto">
                   {
                     pokeInfo?.moves.map(mov => (
-                      <div className="flex gap-2 text-lg pl-8">
+                      <div key={mov.move.name} className="flex gap-2 text-lg pl-8">
                         <span className="font-bold">{mov.move.name}</span>
                       </div>
                     ))

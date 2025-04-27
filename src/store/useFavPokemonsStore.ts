@@ -4,7 +4,7 @@ import { PokemonsResults } from '../types'
 
 interface FavPokemons {
   pokemonsFav: PokemonsResults[]
-  addPokeFav: (pokemon: {url: string, name: string}) => void
+  addPokeFav: (pokemon: {url: string, name?: string | undefined}) => void
   delPokeFav: (name: string) => void
 }
 
@@ -17,13 +17,11 @@ export const useFavPokemonsStore = create<FavPokemons>()(persist((set, get) => {
       const delPokeFav = get().delPokeFav
       const poke = pokemonsFav.find(poke => poke.url == pokemon.url)
       if (poke != undefined) {
-        console.log(poke);
         return delPokeFav(pokemon.name)
       }
 
       const clonePokemonsFav = structuredClone(pokemonsFav)
       clonePokemonsFav.push(pokemon)
-      // console.log(pokemonsFav);
       set({pokemonsFav: clonePokemonsFav})
     },
 
@@ -32,8 +30,6 @@ export const useFavPokemonsStore = create<FavPokemons>()(persist((set, get) => {
 
       const clonePokemonsFav = structuredClone(pokemonsFav)
       const filterPokes = clonePokemonsFav.filter(poke => poke.name != name)
-      console.log(filterPokes);
-      
 
       set({ pokemonsFav: filterPokes })
     }

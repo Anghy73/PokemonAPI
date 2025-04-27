@@ -58,7 +58,7 @@ export interface Pokemons {
 }
 
 export interface PokemonsResults {
-  name: string;
+  name?: string | undefined;
   url:  string;
 }
 

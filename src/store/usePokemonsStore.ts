@@ -55,7 +55,6 @@ export const usePokemonsStore = create<PokemonStore>((set, get) => ({
       set({ pokemonsFilterType: data })
     } catch (error) {
       console.log(error);
-
     }
   },
 
