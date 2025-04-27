@@ -34,10 +34,7 @@ function App() {
   const typeIsLoading = usePokemonsStore(state => state.typeIsLoading)
   const pokemonType = usePokemonsStore(state => state.pokemonTypeNumber)
   const pokemonName = usePokemonsStore(state => state.pokemonName)
-  const matchPokemons = usePokemonsStore(state => state.matchPokemons.map(pokemon => ({
-    ...pokemon,
-    url: pokemon.url || ''
-  })))
+  const matchPokemons = usePokemonsStore(state => state.matchPokemons)
 
   const pokemonsFilterGender = usePokemonsStore(state => state.pokemonsFilterGender)
   const gender = usePokemonsStore(state => state.gender)
